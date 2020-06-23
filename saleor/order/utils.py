@@ -51,7 +51,7 @@ def order_line_needs_automatic_fulfillment(line: OrderLine) -> bool:
 
 def order_needs_automatic_fulfillment(order: Order) -> bool:
     """Check if order has digital products which should be automatically fulfilled."""
-    for line in order.lines.digital():
+    for line in order.lines.digital():  # type: ignore
         if order_line_needs_automatic_fulfillment(line):
             return True
     return False
@@ -306,7 +306,7 @@ def sum_order_totals(qs):
 
 
 def get_valid_shipping_methods_for_order(order: Order):
-    return ShippingMethod.objects.applicable_shipping_methods_for_instance(
+    return ShippingMethod.objects.applicable_shipping_methods_for_instance(  # type: ignore
         order, price=order.get_subtotal().gross
     )
 
@@ -360,4 +360,6 @@ def get_voucher_discount_for_order(order: Order) -> Money:
 
 
 def match_orders_with_new_user(user: User) -> None:
-    Order.objects.confirmed().filter(user_email=user.email, user=None).update(user=user)
+    Order.objects.confirmed().filter(  # type: ignore
+        user_email=user.email, user=None
+    ).update(user=user)
