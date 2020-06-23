@@ -201,7 +201,7 @@ def _fetch_products(sale_pks: Iterable[str]) -> Dict[int, Set[int]]:
 
 
 def fetch_discounts(date: datetime.date) -> List[DiscountInfo]:
-    sales = list(Sale.objects.active(date))
+    sales = list(Sale.objects.active(date))  # type: ignore
     pks = {s.pk for s in sales}
     collections = _fetch_collections(pks)
     products = _fetch_products(pks)

@@ -26,7 +26,7 @@ def allocate_stock(
     If there is less quantity in stocks then rise InsufficientStock exception.
     """
     stocks = (
-        Stock.objects.select_for_update(of=("self",))
+        Stock.objects.select_for_update(of=("self",))  # type: ignore
         .get_variant_stocks_for_country(country_code, order_line.variant)
         .order_by("pk")
     )

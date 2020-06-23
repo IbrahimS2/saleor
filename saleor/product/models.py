@@ -414,7 +414,7 @@ class ProductVariant(ModelWithMetadata):
         return calculate_discounted_price(
             product=self.product,
             price=self.price,
-            collections=self.product.collections.all(),
+            collections=self.product.collections.all(),  # type: ignore
             discounts=discounts,
         )
 
